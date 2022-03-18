@@ -8,6 +8,7 @@ import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
 
+import java.io.*;
 import java.util.*;
 
 @Service
@@ -22,10 +23,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee("HungLP");
         Employee employeeSaved = employeeRepository.save(employee);
 
-        // Fail -> transactional work, not commit db
-        if(employeeSaved.getId() == 3){
-            int a = 1 / 0;
-            System.out.println(a);
+       // Roll back rule mặc định là chỉ có [RuntimeException] và [Error] mới rollback data
+//        if(employeeSaved.getId() == 3){
+//            int a = 1 / 0;
+//            System.out.println(a);
+//        }
+
+        // Đối với checkedException thì rollback không hoạt động
+        FileReader file = null;
+        try {
+            file = new FileReader("C:\\test\\a.txt");
+
+            BufferedReader fileInput = new BufferedReader(file);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

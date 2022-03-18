@@ -23,6 +23,4 @@ public class EmployeeController {
     public void createEmployee(){
         this.employeeService.saveEmployee();
     }
-
-
 }

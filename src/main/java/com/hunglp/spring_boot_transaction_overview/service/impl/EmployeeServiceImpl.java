@@ -23,7 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee("HungLP");
         Employee employeeSaved = employeeRepository.save(employee);
 
-       // Roll back rule mặc định là chỉ có [RuntimeException] và [Error] mới rollback data
+        // Roll back rule mặc định là chỉ có [RuntimeException] và [Error] mới rollback data
 //        if(employeeSaved.getId() == 3){
 //            int a = 1 / 0;
 //            System.out.println(a);
@@ -35,14 +35,23 @@ public class EmployeeServiceImpl implements EmployeeService {
             file = new FileReader("C:\\test\\a.txt");
 
             BufferedReader fileInput = new BufferedReader(file);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+
     @Override
     public List<Employee> getEmployees() {
-       return  this.employeeRepository.findAll();
+        return this.employeeRepository.findAll();
     }
+
+    @Override
+    @Transactional
+    public void saveListEmployee() {
+        List<Employee> employees = Arrays.asList(new Employee("Hung"), new Employee("Dung"));
+        this.employeeRepository.saveAll(employees);
+    }
+
+
 }
